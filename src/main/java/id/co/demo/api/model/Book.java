@@ -7,10 +7,10 @@ import lombok.Data;
 @Entity
 @Table(name = "books")
 @Data
-public class Book {
+public class Book  extends Auditable<String>{
 
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 @NotBlank
     private String book_name;

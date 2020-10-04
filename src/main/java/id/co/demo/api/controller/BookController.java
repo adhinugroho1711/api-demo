@@ -17,10 +17,6 @@ public class BookController {
 	@Autowired
 	BookRepository bookRepository;
 
-	@GetMapping("/books")
-	public List<Book> getAllNotes() {
-		return bookRepository.findAll();
-	}
 
 // Create a new Note
 	@PostMapping("/books")
@@ -33,6 +29,13 @@ public class BookController {
 	public Book getNoteById(@PathVariable(value = "id") Long bookId) throws BookNotFoundException {
 		return bookRepository.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
 	}
+
+	// Get a ALl Note
+	@GetMapping("/books/findAll")
+	public List<Book> getAllNote() throws BookNotFoundException {
+		return bookRepository.findAll();
+	}
+
 
 
 // Delete a Note
