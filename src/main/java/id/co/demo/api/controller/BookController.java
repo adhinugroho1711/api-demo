@@ -10,6 +10,7 @@ import id.co.demo.api.repository.BookRepository;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class BookController {
@@ -36,7 +37,20 @@ public class BookController {
 		return bookRepository.findAll();
 	}
 
+	@PutMapping("/books/update/{id}")
+	public ResponseEntity<Object> updateBook(@RequestBody Book book, @PathVariable long id) {
 
+		Optional<Book> studentOptional = bookRepository.findById(id);
+
+		if (!studentOptional.isPresent())
+			return ResponseEntity.notFound().build();
+
+		book.setId(id);
+
+		bookRepository.save(book);
+
+		return ResponseEntity.ok().build();
+	}
 
 // Delete a Note
 	@DeleteMapping("/books/{id}")
